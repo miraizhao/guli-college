@@ -27,6 +27,7 @@ import java.util.List;
 @Api(description = "讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     private EduTeacherService teacherService;
@@ -46,7 +47,6 @@ public class EduTeacherController {
     @GetMapping("findAll")
     public R findAllTeacher() {
         List<EduTeacher> list = teacherService.list(null);
-        int a=10/0;
         return R.ok().data("items", list);
     }
 
@@ -100,6 +100,7 @@ public class EduTeacherController {
         String end = teacherQueryVO.getEnd();
         Integer level = teacherQueryVO.getLevel();
         String name = teacherQueryVO.getName();
+        queryWrapper.orderByDesc("gmt_create");
         if (!StringUtils.isEmpty(name)) {
             queryWrapper.like("name", name);
         }
@@ -115,7 +116,7 @@ public class EduTeacherController {
 //        调用方法实现分页
         Page<EduTeacher> page = teacherService.page(teacherPage, queryWrapper);
 //        总记录数
-        System.out.println(page.equals(teacherPage));
+//        System.out.println(page.equals(teacherPage));
         long total = teacherPage.getTotal();
 //        数据list集合
         List<EduTeacher> records = teacherPage.getRecords();
@@ -138,7 +139,7 @@ public class EduTeacherController {
         }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("getTeacher/{id}")
     public R getTeacherById(@PathVariable String id) {
         EduTeacher byId = teacherService.getById(id);
         return R.ok().data("teacher", byId);

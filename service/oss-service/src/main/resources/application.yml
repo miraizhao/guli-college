@@ -1,0 +1,15 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: oss-service
+  profiles:
+    active: dev
+
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-shanghai.aliyuncs.com
+      keyid: LTAI5tHFz5RFEANffdRqL8LD
+      keysecret: CpeqL31Ua7VpqOaeFMI3d5MPezEax4
+      bucketname: guli-college-mirai
