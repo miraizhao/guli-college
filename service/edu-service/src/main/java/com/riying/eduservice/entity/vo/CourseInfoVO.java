@@ -18,6 +18,8 @@ public class CourseInfoVO {
     private String teacherId;
     @ApiModelProperty(value = "课程专业ID")
     private String subjectId;
+    @ApiModelProperty(value = "一级分类ID")
+    private String subjectParentId;
     @ApiModelProperty(value = "课程标题")
     private String title;
     @ApiModelProperty(value = "课程销售价格，设置为0则可免费观看")

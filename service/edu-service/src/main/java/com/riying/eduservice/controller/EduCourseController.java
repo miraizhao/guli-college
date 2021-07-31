@@ -28,11 +28,22 @@ public class EduCourseController {
     public void setCourseService(EduCourseService courseService) {
         this.courseService = courseService;
     }
+
     @ApiOperation("新增课程信息")
     @PostMapping("saveCourseInfo")
-    public R saveCourseInfo(@RequestBody CourseInfoVO courseInfoVO){
-        String id=courseService.saveCourseInfo(courseInfoVO);
-        return R.ok().data("courseId",id);
+    public R saveCourseInfo(@RequestBody CourseInfoVO courseInfoVO) {
+        String id = courseService.saveCourseInfo(courseInfoVO);
+        return R.ok().data("courseId", id);
+    }
+    @GetMapping("getCourseInfo/{courseId}")
+    public R getCourseInfo(@PathVariable String courseId){
+        CourseInfoVO courseInfoVO=courseService.getCourseInfo(courseId);
+        return R.ok().data("courseInfoVO",courseInfoVO);
+    }
+    @PostMapping("updateCourseInfo")
+    public R updateCourseInfo(@RequestBody CourseInfoVO courseInfoVO){
+        courseService.updateCourseInfo(courseInfoVO);
+        return R.ok();
     }
 }
 

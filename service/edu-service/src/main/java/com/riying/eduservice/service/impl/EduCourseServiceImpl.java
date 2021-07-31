@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.riying.baseservice.myexception.GuliException;
 import com.riying.eduservice.entity.EduCourse;
 import com.riying.eduservice.entity.EduCourseDescription;
+import com.riying.eduservice.entity.EduVideo;
 import com.riying.eduservice.entity.vo.CourseInfoVO;
 import com.riying.eduservice.mapper.EduCourseMapper;
 import com.riying.eduservice.service.EduCourseDescriptionService;
@@ -43,6 +44,31 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         courseDescription.setId(id);
         descriptionService.save(courseDescription);
         return id;
+
+    }
+
+    @Override
+    public CourseInfoVO getCourseInfo(String courseId) {
+        CourseInfoVO courseInfoVO=new CourseInfoVO();
+        EduCourse eduCourse = baseMapper.selectById(courseId);
+        EduCourseDescription courseDescription = descriptionService.getById(courseId);
+        BeanUtils.copyProperties(eduCourse,courseInfoVO);
+        courseInfoVO.setDescription(courseDescription.getDescription());
+        return courseInfoVO;
+    }
+
+    @Override
+    public void updateCourseInfo(CourseInfoVO courseInfoVO) {
+        EduCourse eduCourse=new EduCourse();
+        BeanUtils.copyProperties(courseInfoVO,eduCourse);
+        int i = baseMapper.updateById(eduCourse);
+        if (i==0){
+            throw new GuliException(20001,"修改失败");
+        }
+        EduCourseDescription eduCourseDescription=new EduCourseDescription();
+        eduCourseDescription.setId(courseInfoVO.getId());
+        eduCourseDescription.setDescription(courseInfoVO.getDescription());
+        descriptionService.updateById(eduCourseDescription);
 
     }
 }
