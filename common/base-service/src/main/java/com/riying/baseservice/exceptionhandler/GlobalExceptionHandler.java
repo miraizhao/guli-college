@@ -1,11 +1,11 @@
 package com.riying.baseservice.exceptionhandler;
 
 
+import com.riying.baseservice.myexception.GuliException;
 import com.riying.commonutils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -37,5 +37,11 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         log.error(e.getMessage());
         return R.error().message("发生了ArithmeticException异常");
+    }
+    @ExceptionHandler(GuliException.class)
+    @ResponseBody
+    public R error(GuliException e){
+        e.printStackTrace();
+        return R.error().message(e.getMsg()).code(e.getCode());
     }
 }

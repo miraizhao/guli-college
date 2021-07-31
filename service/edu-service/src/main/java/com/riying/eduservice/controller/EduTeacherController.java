@@ -24,7 +24,7 @@ import java.util.List;
  * @author mirai.zhao
  * @since 2021-07-26
  */
-@Api(description = "讲师管理")
+@Api(tags ={"讲师管理"} )
 @RestController
 @RequestMapping("/eduservice/teacher")
 @CrossOrigin
